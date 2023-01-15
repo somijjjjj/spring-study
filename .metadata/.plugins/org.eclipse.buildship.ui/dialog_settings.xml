@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.buildship.ui.wizard.project.import">
+		<item key="project_location" value="C:\Users\user\spring-study-workspace\DependencyInjectionSample"/>
+		<item key="apply_working_sets" value="false"/>
+		<item key="gradle_distribution" value="GRADLE_DISTRIBUTION(VERSION(7.6))"/>
+		<item key="build_scans" value="true"/>
+		<item key="auto_sync" value="true"/>
+		<list key="working_sets">
+		</list>
+	</section>
+</section>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;DependencyInjectionSample/src/main/java/com/example/demo/chapter03/aop/SmapleAspect.java&apos; to &apos;SampleAspect.java&apos;" description="Rename resource &apos;SmapleAspect.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/com/example/demo/chapter03/aop/SmapleAspect.java" name="SampleAspect.java" stamp="1673769054713" updateReferences="true"/>
+</session>
