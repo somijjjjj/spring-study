@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- 타임리프 사용 선언 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Hello Thymeleaf</title>
+</head>
+<body>
+	<!-- 추가 -->
+	<h1 th:text="${msg}">표시되는 부분</h1>
+	
+	<!-- 1: 직접 문자를 삽입 -->
+	<h1 th:text="hello world">표시되는 부분</h1>
+	
+	<!-- 2: 인라인 처리 -->
+	<h1>안녕하세요! [[${name}]]씨</h1>
+	
+	<!-- 3: 값 결합 -->
+	<h1 th:text="'오늘의 날씨는 ' + '맑음 '+ '입니다'">표시하는 부분</h1>
+	
+	<!-- 4: 값 결합(리터럴 치환) -->
+	<h1 th:text="|안녕하세요 ${name}씨|">표시하는 부분</h1>
+	
+	<!-- 5: 지역 변수 -->
+	<div th:with="a=1,b=2">
+		<span th:text="|${a}+${b} = ${a+b}|"></span>
+	</div>
+	
+	<!-- 6: 비교와 등가 -->
+	<span th:text="1 > 10"></span>
+	<span th:text="1 < 10"></span>
+	<span th:text="1 >= 10"></span>
+	<span th:text="1 <= 10"></span>
+	<span th:text="1 == 10"></span>
+	<span th:text="1 != 10"></span>
+	<span th:text="길동 == 길동"></span>
+	<span th:text="길동 != 길동"></span>
+	
+	<!-- 7: 조건 연산자 -->
+	<p th:text="${name} == '길동' ? '길동입니다!' : '길동이가 아닙니다"></p>
+	
+	<!-- 8: 조건 분기(true) -->
+	<div th:if="${name} == '길동'">
+		<p>길동 씨입니다!</p>
+	</div>
+	
+	<!-- 9: 조건 분기(false) -->
+	<div th:unless="${name} == '영희'">
+		<p>영희씨가 아닙니다</p>
+	</div>
+	
+	<!-- 10: switch -->
+	<div th:switch="${name}">
+		<p th:case="길동" th:text="|${name}입니다!|"></p>
+		<p th:case="영희" th:text="|${name}입니다!|"></p>
+		<p th:case="철수" th:text="|${name}입니다!|"></p>
+		<p th:case="*">명부에 없습니다</p>
+	</div>
+	
+	<!-- 11: 참조(데이터를 결합한 객체) -->
+	<p th:text="${mb.id}">ID</p>
+	<p th:text="${mb.name}">이름</p>
+	<p th:text="${mb['id']}">ID : []로 접근</p>
+	<p th:text="${mb['name']}">이름 : []로 접근</p>
+	
+	<!-- 12 : 참조(th:object) -->
+	<div th:object="${mb}">
+		<p th:text="*{id}">ID</p>
+		<p th:text="*{name}">이름</p>
+		<p th:text="*{['id']}">ID: []로 접근</p>
+		<p th:text="*{['name']}">이름: []로 접근</p>
+	</div>
+	
+	<!-- 13 : 참조(List) -->
+	<p th:text="${list[0]}">방위</p>
+	<p th:text="${list[1]}">방위</p>
+	<p th:text="${list[2]}">방위</p>
+	<p th:text="${list[3]}">방위</p>
+	
+	<!-- 14 : 참조(Map) -->
+	<p th:text="${map.kim.name}">이름 1</p>
+	<p th:text="${map.lee.name}">이름 2</p>
+	<p th:text="${map['kim']['name']}">이름 1 : []로 접근</p>
+	<p th:text="${map['lee']['name']}">이름 2 : []로 접근</p>
+	
+	<!-- 15 : 반복 -->
+	<div th:each="member : ${members}">
+		<p>[[${member.id}]] : [[${member.name}]]</p>
+	</div>
+	
+	<!-- 16 : 반복 상태 -->
+	<div th:each="member, s : ${members}" th:object="${member}">
+		<p>
+			index-> [[${s.index}]], count-> [[${s.count}]],
+			size-> [[${s.size}]], current-> [[${s.current}]],
+			even-> [[${s.even}]], odd-> [[${s.odd}]],
+			first-> [[${s.first}]], last-> [[${s.last}]],
+			[[*{id}]] : [[*{name}]] 
+		</p>
+	</div>
+	
+	<!-- 17 : 유틸리티 객체(숫자) -->
+	<div th:with="x=1000000, y=123456.789">
+		정수 형식:
+			<span th:text="${#numbers.formatInteger(x, 3, 'COMMA')}"></span>
+			<br/>
+		부동 소수점 형식
+			<span th:text="${#numbers.formatDecimal(x, 3, 'COMMA', 2, 'POINT')}"></span>
+	</div>
+	
+	<!-- 17 : 유틸리티 객체(날짜 및 시간) -->
+	<div th:with="today=${#dates.createNow()}">
+		yyyy/mm/dd 형식:<span th:text="${#dates.format(todate, 'yyyy/MM/dd')}"></span><br/>
+		yyyy년 mm월 dd알 형식:<span th:text="${#dates.format(todate, 'yyyy년 MM월 dd일')}"></span><br/>
+		yyyy 년:<span th:text="${#dates.year(today))}"></span><br/>
+		MM월:<span th:text="${#dates.month(today))}"></span><br/>
+		dd일:<span th:text="${#dates.day(today))}"></span><br/>
+		요일:<span th:text="${#dates.dayOfWeek(today))}"></span><br/>
+	</div>
+	
+	<!-- 17: 유틸리티 객체(문자열) -->
+	<div th:with="str1='abcdef">
+		대문자 변환:<span th:text="${#strings.toUpperCase(str1)}"></span><br/>
+		빈 문자열 판정:<span th:text="${#strings.isEmpty(str1)}"></span><br/>
+		길이:<span th:text="${#strings.length(str1)}"></span><br/>
+	</div>
+	
+	<!-- 18: 프래그먼트를 정의 fragment.html -->
+	<span th:fragment="one">하나</span>
+	<span th:fragment="two">둘</span>
+	<span th:fragment="three">셋</span>
+	
+	<!-- 18: 프래그먼트 사용하기 userThymeleaf.html -->
+	<h1>Fragment를 아래에 삽입하기</h1>
+	<div id="one" th:insert="fragment :: one"></div>
+	<div id="three" th:replace="fragment :: three"></div>
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>
